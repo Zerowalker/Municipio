@@ -65,7 +65,7 @@ class Template
 
     //Handle 404 renaming
     if ($template == '404') {
-        $template = 'e404.php';
+        $template = 'E404';
     }
 
     //Locate controller
@@ -86,7 +86,7 @@ class Template
 
     return new $class();
   }
-  
+
   /**
    * @param $view
    * @param array $data
@@ -100,7 +100,7 @@ class Template
         )->render();
     } catch (\Throwable $e) {
         echo Blade::instance()->make(
-            'e404',
+            '404',
             array_merge(
                 $data,
                 array('errorMessage' => $e)
