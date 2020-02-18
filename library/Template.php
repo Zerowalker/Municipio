@@ -3,14 +3,26 @@
 namespace Municipio;
 
 use \HelsingborgStad\GlobalBladeEngine as Blade;
+use BladeComponentLibrary as ComponentLibrary;
 
 class Template
 {
   public function __construct() {
-    add_action('init', array($this, 'registerViewPaths')); 
-    add_filter('template_redirect', array($this, 'addTemplateFilters'));
+    add_action('init', array($this, 'registerViewPaths'), 10); 
+    add_action('init', array($this, 'initComonentLibrary'), 15); 
+    
+    add_filter('template_redirect', array($this, 'addTemplateFilters'), 10);
+    
     add_filter('template_include', array($this, 'sanitizeViewName'), 10);
     add_filter('template_include', array($this, 'loadViewData'), 15);
+  }
+
+  /**
+   * Init the component library
+   * @return void
+   */
+  public static function initComonentLibrary() {
+    new ComponentLibrary\init();
   }
 
   /**
