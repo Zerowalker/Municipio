@@ -40,16 +40,16 @@ class Template
    */
   public function loadViewData($view, $data = array()) { 
 
+    //Get controller data
     $viewData = $this->accessProtected(
                   $this->loadController($this->getControllerNameFromView($view)),
                   'data'
                 );
 
-    $viewData = apply_filters('Municipio/blade/data', $viewData); 
-
+    //Render the view 
     return $this->renderView(
-      (string)  $this->getViewNameFromPath($view), 
-      (array)   $viewData
+      (string)  $view, 
+      (array)   apply_filters('Municipio/blade/data', $viewData)
     );
   }
 
@@ -96,14 +96,23 @@ class Template
     try {
         echo Blade::instance()->make(
             $view,
-            $data
+            array_merge(
+              $data,
+              array('errorMessage' => false)
+            )
         )->render();
     } catch (\Throwable $e) {
         echo Blade::instance()->make(
             '404',
             array_merge(
                 $data,
-                array('errorMessage' => $e)
+                array(
+                  'errorMessage' => $e,
+                  'post_type' => null,
+                  'heading' => __("Sorry! ", 'municipio'),
+                  'subheading' => __("Something went wrong on this page. If this error is persistent please contact us!", 'municipio'),
+                  'debugHeading' => __("Detailed information", 'municipio')
+                )
             )
         )->render();
     }
@@ -117,11 +126,17 @@ class Template
    * @return void
    */
   private function getViewNameFromPath($view) {
-    $view = str_replace(\Municipio\Helper\Template::getViewPaths(), "", $view); // Remove view path
-    $view = str_replace(".blade.php", "", $view); // Remove blade suffix
-    $view = trim($view, "/"); // Remove trailing & leading slash
-    $view = str_replace("/", ".", $view); // Use blade directory notation
-    return $view; 
+    //Remove all paths
+    $view = str_replace(
+              \Municipio\Helper\Template::getViewPaths(), 
+              "", 
+              $view
+            ); // Remove view path
+    
+    //Remove suffix
+    $view = trim(str_replace(".blade.php", "", $view), "/");
+    
+    return str_replace("/", ".", $view); 
   }
 
   /**
