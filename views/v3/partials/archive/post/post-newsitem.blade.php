@@ -1,41 +1,38 @@
 <?php global $post; ?>
-<div class="post">
 
-    @link([
-        'href' => the_permalink()
-    ])
+@link([
+    'href' => the_permalink()
+])
     @if (municipio_get_thumbnail_source(null,array(400,250)))
 
-            @image([
-                'src'=> municipio_get_thumbnail_source(null,array(400,250)),
-                'alt' => the_title(),
-                'classList' => ['box-image-container']
-            ])
-            @endimage
+        @image([
+            'src'=> municipio_get_thumbnail_source(null,array(400,250)),
+            'alt' => the_title(),
+            'classList' => ['box-image-container']
+        ])
+        @endimage
+
+    @endif
 
 
-        @endif
+    @typography([
+        "variant" => "h3"
+    ])
+        {{the_title()}}
+    @endtypography
 
-        <div class="box-content">
+    @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
 
-            @typography([
-                "variant" => "h3"
-            ])
-                {{the_title()}}
-            @endtypography
+        {{-- TODO: $post->dateObject  something from them post object - use right var --}}
+        @date([
+            'action' => 'formatDate',
+            'timestamp' =>  $post->dateObject
+        ])
+        @enddate
 
-            @if (get_field('archive_' . sanitize_title(get_post_type()) . '_feed_date_published', 'option') != 'false')
+    @endif
 
-                {{-- TODO: $post->dateObject  something from them post object - use right var --}}
-                @date([
-                    'action' => 'formatDate',
-                    'timestamp' =>  $post->dateObject
-                ])
-                @enddate
+    {{ the_excerpt() }}
 
-            @endif
+@endlink
 
-            {{ the_excerpt() }}
-        </div>
-    @endlink
-</div>
