@@ -1,7 +1,7 @@
 <?php global $post; ?>
 
 
-@includeIf('partials.blog.post-header')
+@includeIf('partials.post.post-header')
 
 @if (get_field('post_single_show_featured_image') === true)
     @image([
@@ -28,4 +28,4 @@
 @endif
 
 
-@includeIf('partials.blog.post-footer')
+@includeIf('partials.post.post-footer')
