@@ -65,11 +65,12 @@
         @yield('after-layout')
     </main>
 
+
     {{-- Site footer --}}
     @section('footer')
         @includeIf('partials.footer.default')
     @show
-
+    
     {{-- Wordpress required call --}}
     {!! wp_footer() !!}
 
