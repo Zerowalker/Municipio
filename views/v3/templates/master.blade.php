@@ -24,85 +24,91 @@
 </head>
 
 <body class="{{ $bodyClass }}">
-<div class="l-docs">
+    
     {{-- Site header --}}
     @includeIf('partials.header')
 
+    @section('above')
+    
+    @breadcrumb([
+        'list' => \Municipio\Theme\Navigation::breadcrumbData(),
+        'classList' => ['u-margin__left--2']
+    ])
+    @endbreadcrumb
 
-    <div class="container--doc l-docs--content">
+    
+    {{-- Before page layout --}}
+    @yield('before-layout')
 
-        {{-- Before page layout --}}
-        @yield('before-layout')
-
-        {{-- Page layout --}}
-        @section('layout')
-            <section>
-                {{-- Above --}}
-                @hasSection('above')
-                    @yield('above')
-                @endif
-
-                {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
-                @hasSection('sidebar-left')
-                    @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
-                    @sidebar([
-                        'logo' => $logotype->standard['url'],
-                        'items' => $sideNavigation
-                    ])
-                    @endsidebar
-                @endif
-
-                {{-- Content --}}
-                <!-- <div class="{{-- $layout['content'] --}} content"> -->
-
-                @yield('content')
-
-                <!-- FAB -->
-                @fab([
-                    'position' => 'bottom-right',
-                    'spacing' => 'lg',
-                    'classList' => ['c-fab--show-on-scroll', 'u-visibility--hidden']
-                ])
-
-                    @button([
-                        'type' => 'filled',
-                        'icon' => 'close',
-                        'size' => 'lg',
-                        'text' => 'To the top',
-                        'color' => 'primary',
-                        'icon' => 'keyboard_arrow_up',
-                        'reversePositions' => true
-
-                    ])
-                    @endbutton
-
-                @endfab
-
-            </section>
-
-            {{-- Below --}}
-            @hasSection('below')
-                @yield('below')
+    {{-- Page layout --}}
+    @section('layout')
+        <section>
+            {{-- Above --}}
+            @hasSection('above')
+                @yield('above')
             @endif
 
+            {{-- Sidebar left --}} {{-- TODO: RENAME TO "SIDEBAR" --}}
+            @hasSection('sidebar-left')
+                @includeIf('partials.sidebar', ['id' => 'sidebar-left'])
+                @sidebar([
+                    'logo' => $logotype->standard['url'],
+                    'items' => $sideNavigation
+                ])
+                @endsidebar
+            @endif
+            
+            {{-- Content --}}
+            <!-- <div class="{{-- $layout['content'] --}} content"> -->
 
-        @show
+            @yield('content')
 
-        {{-- After page layout --}}
-        @yield('after-layout')
+            <!-- FAB -->
+            @fab([
+                'position' => 'bottom-right',
+                'spacing' => 'lg',
+                'classList' => ['c-fab--show-on-scroll', 'u-visibility--hidden']
+            ])
 
-        {{-- Site footer --}}
-        @section('footer')
-            @includeIf('partials.footer')
-        @show
+                @button([
+                    'type' => 'filled',
+                    'icon' => 'close',
+                    'size' => 'lg',
+                    'text' => 'To the top',
+                    'color' => 'primary',
+                    'icon' => 'keyboard_arrow_up',
+                    'reversePositions' => true
 
-    </div>
+                ])
+                @endbutton
+
+            @endfab
+
+        </section>
+
+        {{-- Below --}}
+        @hasSection('below')
+            @yield('below')
+        @endif
+
+
+    @show
+
+    {{-- After page layout --}}
+    @yield('after-layout')
+
+    {{-- Site footer --}}
+    @section('footer')
+        @includeIf('partials.footer')
+    @show
+
+    
 
 
 
     {{-- Wordpress required call --}}
     {!! wp_footer() !!}
-</div>
+
 
 </body>
 </html>

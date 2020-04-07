@@ -4,10 +4,6 @@
 @stop
 
 @section('above')
-    @breadcrumb([
-        'list' => \Municipio\Theme\Navigation::breadcrumbData()
-    ])
-    @endbreadcrumb
 @stop
 
 @section('sidebar-left')

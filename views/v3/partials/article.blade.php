@@ -1,4 +1,4 @@
-<article id="article" class="c-article s-article u-mb-4">
+<article id="article" class="c-article s-article u-mb-4 u-padding--2">
   
 	@paper(['padding' => 3])
 

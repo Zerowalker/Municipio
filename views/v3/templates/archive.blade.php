@@ -10,13 +10,6 @@
 
 @stop
 
-@section('above')
-    @breadcrumb([
-        'list' => \Municipio\Theme\Navigation::breadcrumbData()
-    ])
-    @endbreadcrumb
-@stop
-
 @section('sidebar-left')
 
     @includeIf('partials.sidebar', ['id' => 'left-sidebar'])
@@ -34,8 +27,8 @@
     @include('partials.archive.archive-title')
 
     @if (have_posts())
-        <div
-            class="archive s-archive s-archive-template-{{sanitize_title($template)}}  s-{{sanitize_title($postType)}}-archive grid"
+        
+        <div class="u-padding--2"
             @if (apply_filters('archive_equal_container', false, $postType, $template))  @endif>
 
             @if (get_field('archive_' . sanitize_title($postType) . '_filter_position', 'option') == 'content')

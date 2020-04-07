@@ -1,6 +1,6 @@
 {{-- SEARCH: Form, Field and button component --}}
 
-@button([
+{{-- @button([
     'color' => 'primary',
     'style' => 'basic',
     'icon' => 'search',
@@ -8,7 +8,7 @@
     'text' => _x( 'Search', 'label' ),
     'classList' => ['c-button--show-search']
 ])
-@endbutton
+@endbutton --}}
 
 @form([
     'method' => 'get',
