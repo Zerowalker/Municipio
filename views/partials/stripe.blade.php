@@ -1,7 +1,1 @@
-<div class="stripe">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-</div>
+<div class="stripe" style="position:fixed;display:none"></div>
