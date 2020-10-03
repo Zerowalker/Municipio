@@ -1,5 +1,5 @@
 @if (is_active_sidebar('slider-area') === true )
-    <div class="hero has-stripe sidebar-slider-area">
+    <div class="hero sidebar-slider-area">
         <div class="grid">
             <?php dynamic_sidebar('slider-area'); ?>
         </div>
