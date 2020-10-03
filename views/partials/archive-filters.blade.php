@@ -8,6 +8,8 @@
 
     <form method="get" action="{{ $archiveUrl }}" class="container" id="archive-filter">
 
+        <input id="hidden-translate" type="hidden" name="translate" value="" />  
+        <!-- {{ var_dump($archiveUrl) }} -->
         @if (isset($enabledTaxonomyFilters->highlighted) && !empty($enabledTaxonomyFilters->highlighted))
         @foreach ($enabledTaxonomyFilters->highlighted as $taxKey => $taxonomy)
         @if(count($taxonomy->values) > 1)
@@ -55,7 +57,42 @@
                     <input type="text" name="to" placeholder="<?php _e('To date', 'municipio'); ?>" class="form-control datepicker-range datepicker-range-to" value="{{ isset($_GET['to']) && !empty($_GET['to']) ? sanitize_text_field($_GET['to']) : '' }}" readonly>
                 </div>
             </div>
-            @endif
+            @endif   
+
+            <script>
+                let els = [ document.getElementById('filter-date-from'), document.getElementById('filter-date-to')];
+                for(let el of els){
+                    el.addEventListener('click', event => {
+                        document.getElementById('ui-datepicker-div').classList.add('notranslate');
+                    });
+                }
+
+                loadQueryString = () => { 
+                    let parameters = {}; 
+                    let searchString = location.search.substr(1); 
+                    let pairs = searchString.split("&"); 
+                    let parts;
+                    for(let i = 0; i < pairs.length; i++){
+                        parts = pairs[i].split("=");
+                        let name = parts[0];
+                        let data = decodeURI(parts[1]);
+                        parameters[name] = data;
+                    }    
+                    return parameters;
+                }
+
+                function processForm(e) {
+                    let formElement = document.getElementById('archive-filter');
+                    
+                    let oldUrlParams = loadQueryString();
+                    if(oldUrlParams.translate){
+                        document.getElementById('hidden-translate').value = oldUrlParams.translate;
+                    }
+                    return true;
+                }
+                document.getElementById('archive-filter').addEventListener("submit", processForm);
+
+            </script>
 
             @if (isset($enabledTaxonomyFilters->primary) && !empty($enabledTaxonomyFilters->primary))
                 @foreach ($enabledTaxonomyFilters->primary as $taxKey => $tax)
