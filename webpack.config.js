@@ -20,10 +20,10 @@ module.exports = {
    * Add your entry files here
    */
   entry: {
-    "js/app": glob.sync("./assets/source/js/*.js"),
-    "js/admin": glob.sync("./assets/source/js/Admin/*.js"),
-    "js/ajax": glob.sync("./assets/source/js/Ajax/*.js"),
-    "js/mce": glob.sync("./assets/source/mce-js/*.js"),
+    "js/app": "./assets/source/js/bundle.js",
+    "js/admin": "./assets/source/js/Admin/bundle.js",
+    "js/ajax": "./assets/source/js/Ajax/bundle.js",
+    "js/mce": "./assets/source/mce-js/bundle.js",
     "js/mce-metadata": "./assets/source/mce-js/mce-metadata.js",
     "js/mce-buttons": "./assets/source/mce-js/mce-buttons.js",
     "js/mce-pricons": "./assets/source/mce-js/mce-pricons.js",
